@@ -102,7 +102,7 @@ services:
             - dovecot
 
     postfix-billionmail:
-      image: ghcr.io/1096308852/postfix:test
+      image: billionmail/postfix:test
       hostname: postfix
       depends_on:
         pgsql-billionmail:
