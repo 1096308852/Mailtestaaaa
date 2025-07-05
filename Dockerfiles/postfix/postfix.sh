@@ -81,6 +81,11 @@ query = SELECT maildir FROM mailbox WHERE username='%s' AND active = 1
 EOF
 
 
+if [ ! -f "/etc/postfix/postfix-files" ]; then
+  cp -d -n /postfix_init/* /etc/postfix/
+fi
+
+
 if [ ! -f "/etc/postfix/main.cf" ]; then
   cp -d -n /postfix_init/* /etc/postfix/
   \cp -arpf /postfix_init/master.cf /etc/postfix/master.cf
