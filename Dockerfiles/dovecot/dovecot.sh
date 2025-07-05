@@ -32,6 +32,12 @@ if [ ! -f "/etc/dovecot/dovecot.conf" ]; then
   cp -rnp /dovecot_init/* /etc/dovecot/
 fi
 
+# Check if there is an namespace inbox configuration, and if not, force copy the file
+CHECK_CONF=$(grep "namespace inbox" /etc/dovecot/dovecot.conf)
+if [ -z "${CHECK_CONF}" ]; then
+  \cp -arpf /dovecot_init/dovecot.conf /etc/dovecot/dovecot.conf
+fi
+
 # Check if there is an user = vmail configuration, and if not, force copy the file
 CHECK_CONF=$(grep "user = vmail" /etc/dovecot/conf.d/10-master.conf)
 if [ -z "${CHECK_CONF}" ]; then
