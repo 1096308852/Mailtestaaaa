@@ -49,9 +49,7 @@ services:
         - TZ=${TZ}
         - REDISPASS=${REDISPASS}
       volumes:
-        - ./conf/rspamd/local.d:/etc/rspamd/local.d
-        - ./conf/rspamd/statistic.conf:/etc/rspamd/statistic.conf
-        - ./conf/rspamd/rspamd.conf:/etc/rspamd/rspamd.conf 
+        - ./conf/rspamd/:/etc/rspamd/
         - ./rspamd-data:/var/lib/rspamd
         - ./logs/rspamd:/var/log/rspamd
       restart: always
