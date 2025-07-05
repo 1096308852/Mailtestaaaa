@@ -91,6 +91,10 @@ if [ ! -f "/etc/postfix/main.cf" ]; then
   \cp -arpf /postfix_init/master.cf /etc/postfix/master.cf
 fi
 
+if [ ! -f "/etc/postfix/master.cf" ]; then
+  \cp -arpf /postfix_init/master.cf /etc/postfix/master.cf
+fi
+
 # Check if there is an smtpd_milters configuration, and if not, force copy the file
 CHECK_CONF=$(grep "smtpd_milters" /etc/postfix/main.cf)
 if [ -z "${CHECK_CONF}" ]; then
