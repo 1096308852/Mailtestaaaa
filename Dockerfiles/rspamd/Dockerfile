@@ -33,7 +33,12 @@ RUN apt-get update && apt-get install -y \
   && mkdir -p /run/rspamd \
   && chown _rspamd:_rspamd /run/rspamd \
   && chmod +x /rspamd.sh \
+  && cp -arpf /etc/rspamd /rspamd_init \
   && echo 'alias ll="ls -la --color"' >> ~/.bashrc
+
+COPY rspamd/local.d/ /rspamd_init/local.d/
+COPY rspamd/rspamd.conf /rspamd_init/rspamd.conf
+COPY rspamd/statistic.conf /rspamd_init/statistic.conf
 
 ENTRYPOINT ["/rspamd.sh"]
 

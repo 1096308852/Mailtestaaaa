@@ -41,7 +41,7 @@ services:
             - redis
 
     rspamd-billionmail:
-      image: billionmail/rspamd:1.1
+      image: billionmail/rspamd:test
       hostname: rspamd
       depends_on:
         - redis-billionmail
