@@ -9,8 +9,8 @@ if [ ! -f "/etc/rspamd/local.d/milter_headers.conf" ]; then
   cp -rnp /rspamd_init/* /etc/rspamd/
 fi
 
-# Check if there is an bind_socket = "*:11334"; configuration, and if not, force copy the file
-CHECK_CONF=$(grep 'bind_socket = "*:11334";' /etc/rspamd/rspamd.conf)
+# Check if there is an *:11334 configuration, and if not, force copy the file
+CHECK_CONF=$(grep '*:11334' /etc/rspamd/rspamd.conf)
 if [ -z "${CHECK_CONF}" ]; then
   \cp -arpf /rspamd_init/rspamd.conf /etc/rspamd/rspamd.conf
 fi
