@@ -35,7 +35,7 @@ fi
 # Check if there is an user = vmail configuration, and if not, force copy the file
 CHECK_CONF=$(grep "user = vmail" /etc/dovecot/conf.d/10-master.conf)
 if [ -z "${CHECK_CONF}" ]; then
-  \cp -arpf /dovecot_init/conf.d/* dovecot/conf.d/
+  \cp -arpf /dovecot_init/conf.d/* /etc/dovecot/conf.d/
 fi
 
 
