@@ -39,11 +39,15 @@ RUN groupadd -g 102 postfix \
 	net-tools \
 	tzdata \
 	&& rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
-	&& chmod +x /postfix.sh /stop-supervisor.sh
+	&& chmod +x /postfix.sh /stop-supervisor.sh \
+	&& cp -arpf /etc/postfix /postfix_init
 
 ## Copy the supervisord configuration file
 
 COPY supervisord.conf /etc/supervisor/supervisord.conf
+COPY postfix/main.cf /postfix_init/main.cf
+COPY postfix/master.cf /postfix_init/master.cf
+COPY rsyslog.conf /etc/rsyslog.conf
 
 # EXPOSE 25 465 587
 

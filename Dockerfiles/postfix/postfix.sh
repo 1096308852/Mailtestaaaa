@@ -81,6 +81,18 @@ query = SELECT maildir FROM mailbox WHERE username='%s' AND active = 1
 EOF
 
 
+if [ ! -f "/etc/postfix/main.cf" ]; then
+  cp -d -n /postfix_init/* /etc/postfix/
+  \cp -arpf /postfix_init/master.cf /etc/postfix/master.cf
+fi
+
+# Check if there is an inet:rspamd configuration, and if not, force copy the file
+CHECK_CONF=$(grep "inet:rspamd" /etc/postfix/main.cf)
+if [ -z "${CHECK_CONF}" ]; then
+  \cp -arpf /postfix_init/main.cf /etc/postfix/main.cf
+  \cp -arpf /postfix_init/master.cf /etc/postfix/master.cf
+fi
+
 # Append myhostname and User configuration
 if [ -z "${BILLIONMAIL_HOSTNAME}" ]; then
   BILLIONMAIL_HOSTNAME=mail.example.com

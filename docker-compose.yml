@@ -102,17 +102,13 @@ services:
             - dovecot
 
     postfix-billionmail:
-      image: billionmail/postfix:1.5
+      image: billionmail/postfix:test
       hostname: postfix
       depends_on:
         pgsql-billionmail:
           condition: service_started
       volumes:
-        - ./conf/postfix/main.cf:/etc/postfix/main.cf
-        - ./conf/postfix/master.cf:/etc/postfix/master.cf
-        - ./conf/postfix/conf:/etc/postfix/conf
-        - ./conf/postfix/sql:/etc/postfix/sql
-        - ./conf/postfix/rsyslog.conf:/etc/rsyslog.conf
+        - ./conf/postfix/:/etc/postfix/
         - ./logs/postfix:/var/log/mail
         - ./ssl:/etc/ssl/mail
         - ./postfix-data:/var/spool/postfix
