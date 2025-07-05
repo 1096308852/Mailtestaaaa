@@ -80,7 +80,7 @@ query = SELECT maildir FROM mailbox WHERE username='%s' AND active = 1
 
 EOF
 
-
+# If there is no postfix-files file, copy recursively, not containing existing files
 if [ ! -f "/etc/postfix/postfix-files" ]; then
   cp -rnp /postfix_init/* /etc/postfix/
 fi
@@ -91,8 +91,8 @@ if [ ! -f "/etc/postfix/main.cf" ]; then
   \cp -arpf /postfix_init/master.cf /etc/postfix/master.cf
 fi
 
-# Check if there is an inet:rspamd configuration, and if not, force copy the file
-CHECK_CONF=$(grep "inet:rspamd" /etc/postfix/main.cf)
+# Check if there is an smtpd_milters configuration, and if not, force copy the file
+CHECK_CONF=$(grep "smtpd_milters" /etc/postfix/main.cf)
 if [ -z "${CHECK_CONF}" ]; then
   \cp -arpf /postfix_init/main.cf /etc/postfix/main.cf
   \cp -arpf /postfix_init/master.cf /etc/postfix/master.cf

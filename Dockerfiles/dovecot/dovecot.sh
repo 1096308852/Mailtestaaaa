@@ -21,6 +21,24 @@ password_query = SELECT username as user, password, '/var/vmail/%d/%n' as userdb
 
 EOF
 
+
+# If there is no dovecot-files file, copy recursively, not containing existing files
+if [ ! -f "/etc/dovecot/conf.d/90-sieve_rspamd.conf" ]; then
+  cp -rnp /dovecot_init/* /etc/dovecot/
+fi
+
+
+if [ ! -f "/etc/dovecot/dovecot.conf" ]; then
+  cp -rnp /dovecot_init/* /etc/dovecot/
+fi
+
+# Check if there is an user = vmail configuration, and if not, force copy the file
+CHECK_CONF=$(grep "user = vmail" /etc/dovecot/conf.d/10-master.conf)
+if [ -z "${CHECK_CONF}" ]; then
+  \cp -arpf /dovecot_init/conf.d/* dovecot/conf.d/
+fi
+
+
 chmod +x /usr/lib/dovecot/sieve/sa-learn-spam.sh
 chmod +x /usr/lib/dovecot/sieve/sa-learn-ham.sh
 sievec /usr/lib/dovecot/sieve/spam-to-folder.sieve
